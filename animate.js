@@ -1,9 +1,4 @@
 
-// David Rothblatt
-// SoftDev2 pd3 
-// Connecting the Dots 
-// 2016-02-11
-
 console.log("loaded js");
 
 // BASIC VARS
