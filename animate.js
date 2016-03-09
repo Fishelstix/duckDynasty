@@ -4,7 +4,7 @@ console.log("loaded js");
 // BASIC VARS
 var canvas = document.getElementById("canvas");
 var circle = document.getElementById("circle");
-var DVD = document.getElementById("DVD");
+var duck = document.getElementById("duck");
 var stop = document.getElementById("stop");
 var ctx = canvas.getContext("2d");
 var requestID;
@@ -12,7 +12,7 @@ var requestID;
 // DVD STUFF
 
 
-var dvdLogoSetup = function(){
+var duckLogoSetup = function(){
     window.cancelAnimationFrame(requestID);
 
     var x_dvd = canvas.width/2 + Math.floor((Math.random() * 250) + 1) - 125;
@@ -20,23 +20,23 @@ var dvdLogoSetup = function(){
     var x_dir = 1.5;
     var y_dir = -1.5;
 
-    var dvdLogo = function(){
+    var duckLogo = function(){
 	clearBox();
-	if ( x_dvd >= (canvas.width - 60) || x_dvd <= 0 ) {
+	if ( x_duck >= (canvas.width - 60) || x_duck <= 0 ) {
 	    x_dir = -x_dir;
 	} 
-	if ( y_dvd >= (canvas.height - 40) || y_dvd <= 0 ) {
+	if ( y_duck >= (canvas.height - 40) || y_duck <= 0 ) {
 	    y_dir = -y_dir;
 	}
-	x_dvd += x_dir;
-	y_dvd += y_dir;
+	x_duck += x_dir;
+	y_duck += y_dir;
 	var logo = new Image();
 	logo.src = "duck_hunter.jpg";
-	ctx.drawImage(logo,x_dvd,y_dvd,60,40);
-	requestID = window.requestAnimationFrame(dvdLogo);
+	ctx.drawImage(logo,x_duck,y_duck,60,40);
+	requestID = window.requestAnimationFrame(duckLogo);
     };
     
-    dvdLogo();
+    duckLogo();
 
 };
 
