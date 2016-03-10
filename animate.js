@@ -93,7 +93,7 @@ var stopIt = function(){
 
 makeBox(0,0,538,538);
 circle.addEventListener("click",drawCircle);
-DVD.addEventListener("click",dvdLogoSetup);
+duck.addEventListener("click",duckLogoSetup);
 stop.addEventListener("click", stopIt);
 
 
