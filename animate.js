@@ -9,7 +9,7 @@ var stop = document.getElementById("stop");
 var ctx = canvas.getContext("2d");
 var requestID;
 
-// DVD STUFF
+// DUCK STUFF
 
 
 var duckLogoSetup = function(){
