@@ -54,13 +54,11 @@ var shot = function shot(){
     }
 }
 
+var stopAnimation = function stopAnimation(){
+    window.cancelAnimationFrame(requestID);
+    clear();
+}
+
 canvas.addEventListener("click",shot);
 duck.addEventListener("click",duckSetup);
-
-
-
-
-
-
-
-
+stop.addEventListener("click",stopAnimation);
