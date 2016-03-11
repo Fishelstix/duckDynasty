@@ -1,100 +1,62 @@
-
-console.log("loaded js");
-
-// BASIC VARS
 var canvas = document.getElementById("canvas");
-var circle = document.getElementById("circle");
 var duck = document.getElementById("duck");
 var stop = document.getElementById("stop");
 var ctx = canvas.getContext("2d");
+var duckX = 0;
+var duckY = 0;
+var isDuck = 0;
+var score = 0;
 var requestID;
 
-// DUCK STUFF
+var clear = function clear() {
+    ctx.clearRect(0,0,538,538);
+    //CHANGE THIS TO PRINTING BACKGROUND
+}
 
+var duckSetup = function duckSetup(){
+    isDuck = 1;
+    duckX =  Math.floor((Math.random() * 478))+10;
+    duckY =  Math.floor((Math.random() * 478))+10;
 
-var duckLogoSetup = function(){
-    window.cancelAnimationFrame(requestID);
+    var x_vel = 5*(Math.floor(Math.random() * 2)*2-1);
+    var y_vel = 5*(Math.floor(Math.random() * 2)*2-1);
 
-    var x_dvd = canvas.width/2 + Math.floor((Math.random() * 250) + 1) - 125;
-    var y_dvd = canvas.height/2 + Math.floor((Math.random() * 250) + 1) - 125;
-    var x_dir = 1.5;
-    var y_dir = -1.5;
-
-    var duckLogo = function(){
-	clearBox();
-	if ( x_duck >= (canvas.width - 60) || x_duck <= 0 ) {
-	    x_dir = -x_dir;
+    var duckGo = function(){
+	clear();
+	if ( duckX >= 498 || duckX <= 0 || Math.floor(Math.random() * 100) == 0) {
+	    x_vel = -x_vel;
 	} 
-	if ( y_duck >= (canvas.height - 40) || y_duck <= 0 ) {
-	    y_dir = -y_dir;
+	if ( duckY >= 498 || duckY <= 0 || Math.floor(Math.random() * 100) == 0) {
+	    y_vel = -y_vel;
 	}
-	x_duck += x_dir;
-	y_duck += y_dir;
+	duckX += x_vel;
+	duckY += y_vel;
 	var logo = new Image();
 	logo.src = "duck_hunter.jpg";
-	ctx.drawImage(logo,x_duck,y_duck,60,40);
-	requestID = window.requestAnimationFrame(duckLogo);
+	ctx.drawImage(logo,duckX,duckY,40,40);
+	requestID = window.requestAnimationFrame(duckGo);
     };
     
-    duckLogo();
-
+    duckGo();
 };
 
-//* outlines the canvas that the user can draw in
-function makeBox(x,y,w,h){
-    ctx.strokeStyle = "#0000ff";
-    ctx.strokeRect(x,y,w,h);
-    ctx.stroke();
-}
-//*
-
-function clearBox(){
-    console.log("clear box called");
-    ctx.clearRect(0,0,538,538);
-    makeBox(0,0,538,538);
-}
-
-radius = 0; 
-growing = true;
-
-function drawCircle(event){
-    clearBox();
-    console.log("cleared, drawing");
-    //** alterating size of circle
-    if (growing){
-	radius += 1; 
-    } else{
-	radius -= 1;
+var shot = function shot(){
+    var rect = canvas.getBoundingClientRect();
+    var mouseX = event.clientX - rect.left;
+    var mouseY = event.clientY - rect.top;
+    if( mouseX - duckX >= 0 && mouseX - duckX <= 40 && mouseY - duckY >= 0 && mouseY - duckY <= 40){
+        score += 10;
+        window.cancelAnimationFrame(requestID);
+        clear();
+        setTimeout(duckSetup, 2000);
+    }else{
+        score -= 10;
     }
-    
-    //** altering growing variable
-    if (radius == canvas.width/2){
-	growing = false;
-    }
-    if (radius == 0){
-	growing = true;
-    }
-
-    //* drawing the circle itself
-    ctx.beginPath();
-    ctx.fillStyle = "#003FFF";
-    ctx.arc(canvas.width/2, canvas.height/2, radius, 0, 2*Math.PI);
-    ctx.stroke();
-    ctx.fill();
-    
-    requestID = window.requestAnimationFrame(drawCircle);
-    
 }
 
-var stopIt = function(){
-    console.log (requestID);
-    window.cancelAnimationFrame(requestID);
-}
+canvas.addEventListener("click",shot);
+duck.addEventListener("click",duckSetup);
 
-makeBox(0,0,538,538);
-circle.addEventListener("click",drawCircle);
-duck.addEventListener("click",duckLogoSetup);
-stop.addEventListener("click", stopIt);
 
 
 
