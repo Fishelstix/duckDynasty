@@ -35,6 +35,8 @@ var duckSetup = function duckSetup(){
 	logo.src = "duck_hunter.jpg";
 	ctx.drawImage(logo,duckX,duckY,40,40);
 	requestID = window.requestAnimationFrame(duckGo);
+    ctx.font = "20px arial" //sets font fillStyle
+    ctx.fillText("score: " + score, 25, 25); //write the text
     };
     
     duckGo();
@@ -62,3 +64,5 @@ var stopAnimation = function stopAnimation(){
 canvas.addEventListener("click",shot);
 duck.addEventListener("click",duckSetup);
 stop.addEventListener("click",stopAnimation);
+ctx.font = "20px arial" //sets font fillStyle
+ctx.fillText("score: " + score, 25, 25); //write the text
